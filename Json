@@ -1,1 +1,29 @@
-Sample file with json data:
+JavaScript Object Notation:
+=================================================
+JSON object
+=================================================
+{
+    "attribute": [
+    {
+	  "inner_obj_attr": "value",
+    }
+  ],
+}
+=================================================
+
+
+=================================================
+JSON DATA HANDLING
+=================================================
+
+using Newtonsoft.Json.Linq;
+
+protected static JObject jsonMediaConf;
+jsonMediaConf = JObject.Parse(File.ReadAllText(td["json_mediaconf_data.path"]));
+
+foreach (var Tcase in jsonMediaConf) // for each parameter id in json file
+{
+  string json_value = Tcase.Value[0]["inner_obj_attr"].ToString();
+  
+  string attr_name = Tcase.Key.ToString()
+}
