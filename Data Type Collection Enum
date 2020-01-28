@@ -1,1 +1,8 @@
+IEnumerable<string> string_list = new List<string>()
+{
+"string 1",
+"string 2,
+"string 3"
+};
 
+string list = string.concat(string_list); \\ list = string 1string 2string3
