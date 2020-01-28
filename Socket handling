@@ -1,8 +1,53 @@
 using System.Net.Sockets;
 
+=================================================
+TcpListener definition
+=================================================
+
+    public static void Main()
+    {
+        TcpListener client_sock = new TcpListener(IPAddress.Parse("127.0.0.1"), 7777);
+        client_sock.Start();
+        Client_Handling(client_sock);  \\ function to socket listening 
+    }
+
+=================================================
+Client_Handling definition
+=================================================
+
+while (true) // waiting for data
+        {
+            TcpClient client = client_sock.AcceptTcpClient();
+            NetworkStream ns = client.GetStream();
+            Send_Data(ns, refresh_respond_buffor());
+        }
+
+=================================================
+Send_Data definition
+=================================================
 
 
+    public static void Send_Data(NetworkStream ns, MemoryStream[] ms)
+    {
+        byte[] data = new byte[2048];
+        string request, action;
+        XDocument xrequest;
+        MemoryStream ms_data = new MemoryStream();
+        XDocument xml_data = XDocument.Load(@"C:\file.xml");
+        xml_data.Save(ms_data);
 
+        request = Encoding.ASCII.GetString(data, 0, ns.Read(data, 0, data.Length)); \\ get data from socket
 
+        Send_Data_To_Socket(ns, ms_data);
 
+        Console.WriteLine(request);
+    }
+=================================================
+Send_Data_To_Socket definition
+=================================================
 
+    public static void Send_Data_To_Socket(NetworkStream ns, MemoryStream ms)
+    {
+        ns.Write(ms.ToArray(), 0, ms.ToArray().Length);
+    }
+    
